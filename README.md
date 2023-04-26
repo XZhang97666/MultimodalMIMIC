@@ -18,9 +18,8 @@ We uilize open-source EHR [MIMIC-III](https://physionet.org/content/mimiciii/1.4
 
 You need to 
 1. Download the MIMIC-III data.
-2. 
-
-
+2. Process time serise data following [MIMIC-III Benchmarks](https://github.com/YerevaNN/mimic3-benchmarks). Note, there are five tasks in the [MIMIC-III Benchmarks](https://github.com/YerevaNN/mimic3-benchmarks): in-hospital-mortality, decompensation, length-of-stay, phenotyping and multitask. We conduct experiments on in-hospital-mortality and phenotyping, which are more important based on clinicans' suggestion. Effetiveness of our model on other tasks are leveage as furture works.
+3. 
 
 
 ### generation 
