@@ -19,7 +19,7 @@ We uilize open-source EHR [MIMIC-III](https://physionet.org/content/mimiciii/1.4
 After download MIMIC-III, we obtain time series and clinical notes following: 
 
 1. Process time serise data following [MIMIC-III Benchmarks](https://github.com/YerevaNN/mimic3-benchmarks). Note, there are five tasks in the [MIMIC-III Benchmarks](https://github.com/YerevaNN/mimic3-benchmarks): in-hospital-mortality, decompensation, length-of-stay, phenotyping and multitask. We conduct experiments on in-hospital-mortality and phenotyping, which are more important based on clinicans' suggestion. Effetiveness of our model on other tasks are leveage as furture works.
-2. Process clinical note data following [ClinicalNotesICU] (https://github.com/kaggarwal/ClinicalNotesICU)
+2. Process clinical note data following [ClinicalNotesICU](https://github.com/kaggarwal/ClinicalNotesICU)
 3. Extract irregular time series and clinicalbnotes.
 For example, for 48 IHM task, runs
 
