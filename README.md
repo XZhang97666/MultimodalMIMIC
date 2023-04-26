@@ -28,6 +28,9 @@ python preprocess.py
 ```
 with defualt setting. 
 
+#### Build your own data
+To build your own task, you need a dataset of a list of instances. For exach instance, there is 
+
 
 
 
