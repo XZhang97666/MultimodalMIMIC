@@ -270,13 +270,11 @@ def change_data_form(file_path,mode,debug=False):
 
         dataList=[]
 
-        assert len(data_X)==len(data_y)==len(data_text)==len(data_names)==len(start_times)==len(timetoends) #==len(text_times)
+        assert len(data_X)==len(data_y)==len(data_text)==len(data_names)==len(start_times)==len(timetoends) 
 
-        # assert  len(text_times[0])==len(data_text[0])==len(timetoends[0])
 
         assert  len(data_text[0])==len(timetoends[0])
         for x,y, text, name, start, end in zip(data_X,data_y,data_text, data_names,start_times,timetoends):
-        # for x,y, text, name, time,start, end in zip(data_X,data_y,data_text, data_names,text_times,start_times,timetoends):
             if len(text)==0:
                 continue
             new_text=[]
@@ -346,104 +344,6 @@ def data_replace(file_path1,file_path2,mode,debug=False):
 
 
 
-def extract_irregular(dataPath_in,dataPath_out):
-    # Opening JSON file
-    channel_info_file = open('Data/irregular/channel_info.json')
-    dis_config_file=open('Data/irregular/discretizer_config.json')
-    channel_info = json.load(channel_info_file)
-    dis_config=json.load(dis_config_file)
-    channel_name=dis_config['id_to_channel']
-    is_catg=dis_config['is_categorical_channel']
-
-
-    with open(dataPath_in, 'rb') as f:
-        X,y,names = pickle.load(f)
-    data_irregular={}
-
-    for p_id, x, in enumerate(X):
-        data_irregular[names[p_id]]={}
-        tt=[]
-        features_list=[]
-        features_mask_list=[]
-        for t_idx, feature in enumerate(x):
-            f_list_per_t=[]
-            f_mask_per_t=[]
-            for f_idx, val in enumerate(feature):
-                if f_idx==0:
-                    tt.append(round(float(val),2))
-                else:
-                    head=channel_name[f_idx-1]
-                    if val=='':
-                        f_list_per_t.append(0)
-                        f_mask_per_t.append(0)
-                    else:
-                        f_mask_per_t.append(1)
-                        if is_catg[head]:
-                            val=channel_info[head]['values'][val]
-                        f_list_per_t.append(float(round(float(val),2)))
-            assert len(f_list_per_t)==len(f_mask_per_t)
-            features_list.append(f_list_per_t)
-            features_mask_list.append(f_mask_per_t)
-        assert len(features_list)==len(features_mask_list)==len(tt)
-        data_irregular[names[p_id]]['label']=y[p_id]
-        data_irregular[names[p_id]]['ts_tt']=tt
-        data_irregular[names[p_id]]['irg_ts']=np.array(features_list)
-        data_irregular[names[p_id]]['irg_ts_mask']=np.array(features_mask_list)
-
-    with open(dataPath_out, 'wb') as f:
-        pickle.dump(data_irregular, f)
-
-    channel_info_file.close()
-    dis_config_file.close()
-
-
-def mean_std(dataPath_in,dataPath_out):
-    with open(dataPath_in, 'rb') as f:
-        data=pickle.load(f)
-
-    feature_list=[[] for _ in range(17)]
-
-    for name, p_data in data.items():
-        irg_ts=p_data['irg_ts']
-        irg_ts_mask=p_data['irg_ts_mask']
-
-        for t_idx, (ts, ts_mask) in enumerate(zip(irg_ts,irg_ts_mask)):
-            for f_idx, (val, mask_val) in enumerate(zip(ts, ts_mask)):
-                # print(f_idx)
-                if mask_val==1:
-                    feature_list[f_idx].append(val)
-
-
-    means=[]
-    stds=[]
-
-    for f_vals in feature_list:
-        means.append(stat.mean(f_vals))
-        stds.append(stat.stdev(f_vals))
-
-    with open(dataPath_out, 'wb') as f:
-        pickle.dump((means,stds), f)
-
-
-
-def normalize(dataPath_in,dataPath_out,normalizer_path):
-    with open(dataPath_in, 'rb') as f:
-        data=pickle.load(f)
-
-    with open(normalizer_path, 'rb') as f:
-        means, stds=pickle.load(f)
-
-    for name, p_data in data.items():
-        irg_ts=p_data['irg_ts']
-        irg_ts_mask=p_data['irg_ts_mask']
-
-        for t_idx, (ts, ts_mask) in enumerate(zip(irg_ts,irg_ts_mask)):
-            for f_idx, (val, mask_val) in enumerate(zip(ts, ts_mask)):
-                if mask_val==1:
-                    irg_ts[t_idx][f_idx]=(val-means[f_idx])/stds[f_idx]
-
-    with open(dataPath_out, 'wb') as f:
-        pickle.dump(data,f)
 
 
 def merge_reg_irg(dataPath_reg, dataPath_irg):
@@ -467,43 +367,6 @@ def merge_reg_irg(dataPath_reg, dataPath_irg):
 
 
 
-def replace_y(dataPath_irg, data_newlabel,outdir):
-    with open(data_newlabel, 'rb') as f:
-            data_l=pickle.load(f)
-
-    dict_l={}
-
-    data_y = data_l[1]
-    data_names = data_l[3]
-
-    for y,name in zip(data_y, data_names):
-        dict_l[name]=y
 
 
 
-    with open(dataPath_irg, 'rb') as f:
-            data_irg=pickle.load(f)
-
-    for data in data_irg:
-        data['label']=dict_l[data['data_names']]
-
-    with open(outdir, 'wb') as f:
-        pickle.dump(data_irg,f)
-
-
-
-
-if __name__ == "__main__":
-    dir_input="../mimic3-benchmarks/"
-    dir='Data/ihm/' 
-
-    #irregular/
-    for mode in ['train', 'val', 'test']:
-        extract_irregular(dir_input+'/irregular_'+mode+'.pkl', dir+'irregular/new_irregular_'+mode+'.pkl')
-    #calculate mean,std of ts
-    mean_std(dir+'irregular/new_irregular_train.pkl',dir+'irregular/mean_std.pkl')
-
-    for mode in ['train', 'val', 'test']:
-        normalize(dir+'irregular/new_irregular_'+mode+'.pkl',\
-                  dir+'irregular/norm_irregular_'+mode+'.pkl',\
-                  dir+'irregular/mean_std.pkl')
