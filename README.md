@@ -13,7 +13,14 @@ source activate MulEHR
 pip install -r requirements.txt
 ```
 
-## Data 
+### Data 
+We uilize open-source EHR [MIMIC-III](https://physionet.org/content/mimiciii/1.4/) to conduct experiment. This dataset is a restricted-access resource. To access the files, you must be a credentialed user and sign the data use agreement (DUA) for the project. Because of the DUA, we cannot provide the data directly.
+
+You need to 
+1. Download the MIMIC-III data.
+2. 
+
+
 
 
 ### generation 
