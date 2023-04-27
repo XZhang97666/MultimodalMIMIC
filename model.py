@@ -3,7 +3,6 @@ from torch import nn
 import torch.nn.functional as F
 import sys
 import math
-from loss import *
 from module import *
 from interp import *
 import copy

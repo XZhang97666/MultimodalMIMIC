@@ -49,13 +49,10 @@ def make_save_dir(args):
             output_dir+= "Text_"+str(args.tt_max)+"/"+args.model_name+"/"+str(args.max_length)+"/"
 
         if args.modeltype=="TS_Text":
-            if args.self_cross:
-                if args.cross_method=="self_cross":
-                    output_dir+='cross_attn'+str(args.cross_layers)+"/"
-                else:
-                    output_dir+=args.cross_method+"/"
+            if args.cross_method=="self_cross":
+                output_dir+='cross_attn'+str(args.cross_layers)+"/"
             else:
-                output_dir+=args.agg_type+"/"
+                output_dir+=args.cross_method+"/"
 
         if args.modeltype=="Text" or args.modeltype=="TS":
             output_dir+='layer'+str(args.layers)+"/"

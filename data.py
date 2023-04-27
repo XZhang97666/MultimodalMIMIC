@@ -9,7 +9,7 @@ from torch.nn.utils.rnn import pad_sequence
 import os
 from transformers import AutoTokenizer, BertTokenizer
 import torch.nn as nn
-from until import *
+from util import *
 
 
 
@@ -48,7 +48,7 @@ def F_impute(X,tt,mask,duration,tt_max):
 
 class TSNote_Irg(Dataset):
 
-    def __init__(self,args,mode,tokenizer,chunk=False,data=None):
+    def __init__(self,args,mode,tokenizer,data=None):
         self.tokenizer = tokenizer
         self.max_len = args.max_length
         if data !=None:
@@ -80,8 +80,8 @@ class TSNote_Irg(Dataset):
         else:
             notes_order= 'Last' if self.order_sample[idx]==1  else 'First'
         data_detail = self.data[idx]
-        idx=data_detail['data_names']
-        reg_ts=data_detail['TS_data']
+        idx=data_detail['name']
+        reg_ts=data_detail['reg_ts']
         ts=data_detail['irg_ts']
 
 
@@ -96,7 +96,6 @@ class TSNote_Irg(Dataset):
         atten_mask=[]
         label=data_detail["label"]
         ts_tt=data_detail["ts_tt"]
-        start_time=data_detail["adm_time"]
         text_time_to_end=data_detail["text_time_to_end"]
 
         reg_ts=F_impute(ts,ts_tt,ts_mask,1,self.tt_max)
