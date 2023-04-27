@@ -39,3 +39,10 @@ To build your own task, you need a dataset of a list of instances. For each inst
 - `text_time_to_end`: A list of time points of irregular clinical notes, whose length is l_txt.
 - `label`: The predicted output.
 
+
+### Experiment
+Run following bash file to conduct experiment:
+```bash
+sh run.sh
+```
+
