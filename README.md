@@ -33,7 +33,7 @@ To build your own task, you need a dataset of a list of instances. For each inst
 - `name`: ID number.
 - `irg_ts`: Irregular time series matrix, which is a d_m x l_ts np.array. Here, d_m is the number of features, and l_ts is the total number of distinct time points.
 - `irg_ts_mask`: Irregular time series mask matrix, the same shape as irg_ts. When there is an existing value in the corresponding position of irg_ts, the mask value is 1; otherwise, it is 0.
-- `reg_ts`: Imputed regular time series matrix, which is a (d_m x 2) x l_reg np.array. Here, (d_m x 2) is the number of features with coorespnding mask, and l_reg is the length of predefined time interval.
+- `reg_ts`: Imputed regular time series matrix, which is a (d_m x 2) x l_reg np.array. Here, (d_m x 2) is the number of features with corresponding masks, and l_reg is the length of the predefined time interval.
 - `ts_tt`: A list of time points of irregular time series, whose length is l_ts.
 - `text_data`: A list of clinical notes, whose length is l_txt, the number of clinical notes a patient has.
 - `text_time_to_end`: A list of time points of irregular clinical notes, whose length is l_txt.
