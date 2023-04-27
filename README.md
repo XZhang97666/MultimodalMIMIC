@@ -46,3 +46,14 @@ Run following bash file to conduct experiment:
 sh run.sh
 ```
 
+
+### Acknowledgements
+
+We would like to acknowledge the following open-source projects that were used in our work:
+
+- [MIMIC-III Benchmarks](https://github.com/YerevaNN/mimic3-benchmarks) for generating the time series data from the MIMIC-III dataset.
+
+- [ClinicalNotesICU](https://github.com/kaggarwal/ClinicalNotesICU) for extracting the clinical notes data from the MIMIC-III dataset.
+
+The use of these open-source projects has been instrumental in our research and we are grateful for the contributions made by their authors.
+
