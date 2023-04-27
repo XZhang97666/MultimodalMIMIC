@@ -29,16 +29,13 @@ python preprocess.py
 with defualt setting. 
 
 #### Build your own data
-To build your own task, you need a dataset of a list of instances. For exach instance, there is 
+To build your own task, you need a dataset of a list of instances. For each instance, the following information is required:
 
+`name`: ID number.
+`irg_ts`: Irregular time series matrix, which is a d_m x l_ts np.array. Here, d_m is the number of features, and l_ts is the total number of distinct time points.
+`irg_ts_mask`: Irregular time series mask matrix, the same shape as irg_ts. When there is an existing value in the corresponding position of irg_ts, the mask value is 1; otherwise, it is 0.
+`ts_tt`: A list of time points of irregular time series, whose length is l_ts.
+`text_data`: A list of clinical notes, whose length is l_txt, the number of clinical notes a patient has.
+`text_time_to_end`: A list of time points of irregular clinical notes, whose length is l_txt.
+`label`: The predicted output.
 
-
-
-
-
-
-
-### generation 
-
-
-### using your own data
