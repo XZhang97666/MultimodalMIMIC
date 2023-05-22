@@ -3,7 +3,7 @@
 This repository contains the PyTorch implementation for the paper [Improving Medical Predictions by Irregular Multimodal Electronic Health Records Modeling](https://arxiv.org/abs/2210.12156).
 This work has been accepted at the [International Conference on Machine Learning](https://icml.cc/), 2023. 
 
-## 1. Set up environment
+## Set up environment
 
 ### Environment
 Run the following commands to create a conda environment:
@@ -47,7 +47,23 @@ sh run.sh
 ```
 
 
-### Acknowledgements
+
+## Citation
+
+If you found this repository useful, please consider cite our paper:
+
+```bibtex
+@misc{zhang2022improving,
+      title={Improving Medical Predictions by Irregular Multimodal Electronic Health Records Modeling}, 
+      author={Xinlu Zhang and Shiyang Li and Zhiyu Chen and Xifeng Yan and Linda Petzold},
+      year={2022},
+      eprint={2210.12156},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
+
+## Acknowledgements
 
 We would like to acknowledge the following open-source projects that were used in our work:
 
@@ -56,4 +72,6 @@ We would like to acknowledge the following open-source projects that were used i
 - [ClinicalNotesICU](https://github.com/kaggarwal/ClinicalNotesICU) for extracting the clinical notes data from the MIMIC-III dataset.
 
 The use of these open-source projects has been instrumental in our research and we are grateful for the contributions made by their authors.
+
+
 
